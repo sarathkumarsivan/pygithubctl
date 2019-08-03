@@ -1,14 +1,28 @@
-import logging
-import base64
-import os
 import argparse
+import base64
+import logging
+
+import os
+import sys
 
 from github import Github
 from github import GithubException
 
 
+def configure_logging(logger_instance):
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    logger_instance.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(formatter)
+    logger_instance.addHandler(handler)
+    return logger_instance
+
+
+logger = configure_logging(logging.getLogger('pygithubctl'))
+
+
 def download(repository, sha, source, target):
-    logging.info('Fetching %s from %s', source, repository)
+    logger.info('Fetching %s from %s', source, repository)
     try:
         contents = repository.get_contents(source, ref=sha)
         data = base64.b64decode(contents.content)
@@ -56,11 +70,12 @@ def get_options():
 
 
 def get_branch_or_tag(options):
-    if not options.branch:
-        return options.branch
-    if not options.tag:
-        return options.tag
-    return "master"
+    branch_or_tag = "master"
+    if options.branch:
+        branch_or_tag = options.branch
+    if options.tag:
+        branch_or_tag = options.tag
+    return branch_or_tag
 
 
 def get_base_url(hostname):
@@ -70,23 +85,23 @@ def get_base_url(hostname):
 
 
 def main():
-    logging.info('Fetching file from GitHub repository')
+    logger.info('Fetching file from GitHub repository')
     options = get_options()
     base_url = get_base_url(options.hostname)
-    branch_or_tag = get_branch_or_tag()
-    destination = resolve_target(options.destination)
+    branch_or_tag = get_branch_or_tag(options)
+    destination = resolve_target(options.file_path, options.destination)
 
-    logging.info('base_url: %s', base_url)
-    logging.info('branch_or_tag: %s', branch_or_tag)
-    logging.info('destination: %s', destination)
+    logger.info('base_url: %s', base_url)
+    logger.info('branch_or_tag: %s', branch_or_tag)
+    logger.info('destination: %s', destination)
 
     github = Github(base_url=base_url, login_or_token=options.auth_token)
     organization = github.get_user().get_orgs()[0]
-    logging.info('organization: %s', organization)
+    logger.info('organization: %s', organization)
 
     repository = organization.get_repo(options.repository)
     sha = get_sha(repository, branch_or_tag)
-    logging.info('sha: %s', sha)
+    logger.info('sha: %s', sha)
 
     download(repository, sha, options.file_path, destination)
 
