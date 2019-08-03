@@ -1,14 +1,13 @@
 from setuptools import setup
 
-
-def readme():
-    with open('README.rst') as f:
-        return f.read()
-
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(name='pygithubctl',
-      version='2.7.10',
-      description='The GitHub command-line tool, pygithubctl, allows you to run commands against GitHub repository',
+      version='2.7.11',
+      description='The GitHub command-line tool, pygithubctl.',
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       url='http://github.com/sarathkumarsivan/pygithubctl',
       author='Sarath Kumar Sivan',
       author_email='sarathkumarsivan@gmail.com',

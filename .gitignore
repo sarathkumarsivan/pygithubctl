@@ -2,3 +2,4 @@ pygithubctl.egg-info
 .secret
 dist
 build
+pygithubctl/__init__.pyc

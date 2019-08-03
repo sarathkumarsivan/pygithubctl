@@ -95,7 +95,7 @@ def main():
     logger.info('branch_or_tag: %s', branch_or_tag)
     logger.info('destination: %s', destination)
 
-    github = Github(base_url=base_url, login_or_token=options.auth_token)
+    github = Github(base_url=base_url, login_or_token=options.auth_token, verify=False)
     organization = github.get_user().get_orgs()[0]
     logger.info('organization: %s', organization)
 
