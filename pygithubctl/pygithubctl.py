@@ -76,9 +76,21 @@ def get_options():
     parser.add_argument('--tag', required=False)
     parser.add_argument('--file_path', required=True)
     parser.add_argument('--destination', required=True)
-    parser.add_argument('--http_ssl_verify', required=False, nargs='?', const=True, default=True)
+    parser.add_argument("--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True,
+                        help="Enable/Disable HTTP SSL Verification")
     args = parser.parse_args()
     return args
+
+
+def str_to_bool(value):
+    if isinstance(value, bool):
+        return value
+    if value.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif value.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
 def get_branch_or_tag(options):
@@ -106,6 +118,7 @@ def main():
     logger.info('base_url: %s', base_url)
     logger.info('branch_or_tag: %s', branch_or_tag)
     logger.info('destination: %s', destination)
+    logger.info('http_ssl_verify: %s', options.http_ssl_verify)
 
     github = Github(base_url=base_url, login_or_token=options.auth_token, verify=options.http_ssl_verify)
     organization = github.get_user().get_orgs()[0]
