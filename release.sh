@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env bash
 
 # Copyright (c) 2019 Sarath Kumar Sivan, https://github.com/sarathkumarsivan
 #
@@ -20,37 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from setuptools import setup
+rm -rf dist pygithubctl.egg-info
 
+python setup.py sdist
 
-def readme():
-    with open('README.rst') as f:
-        return f.read()
-
-
-setup(name='pygithubctl',
-      version='2.7.14',
-      description='The GitHub command-line tool, pygithubctl',
-      long_description=readme(),
-      classifiers=[
-          'Development Status :: 3 - Alpha',
-          'License :: OSI Approved :: MIT License',
-          'Programming Language :: Python :: 2.7',
-          'Topic :: GitHub :: Command-line',
-      ],
-      keywords='pygithubctl githubctl',
-      url='http://github.com/sarathkumarsivan/pygithubctl',
-      author='Sarath Kumar Sivan',
-      author_email='sarathkumarsivan@gmail.com',
-      license='MIT',
-      packages=['pygithubctl'],
-      install_requires=[
-          'PyGithub',
-      ],
-      test_suite='nose.collector',
-      tests_require=['nose', 'nose-cover3'],
-      entry_points={
-          'console_scripts': ['pygithubctl=pygithubctl.pygithubctl:main'],
-      },
-      include_package_data=True,
-      zip_safe=False)
+twine upload dist/* --verbose
