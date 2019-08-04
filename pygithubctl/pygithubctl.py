@@ -25,7 +25,6 @@ import base64
 import os
 import logging
 
-
 from github import Github
 from github import GithubException
 from configurer import configure_logging
@@ -77,6 +76,7 @@ def get_options():
     parser.add_argument('--tag', required=False)
     parser.add_argument('--file_path', required=True)
     parser.add_argument('--destination', required=True)
+    parser.add_argument('--http_ssl_verify', required=False, nargs='?', const=True, default=True)
     args = parser.parse_args()
     return args
 
@@ -107,7 +107,7 @@ def main():
     logger.info('branch_or_tag: %s', branch_or_tag)
     logger.info('destination: %s', destination)
 
-    github = Github(base_url=base_url, login_or_token=options.auth_token, verify=False)
+    github = Github(base_url=base_url, login_or_token=options.auth_token, verify=options.http_ssl_verify)
     organization = github.get_user().get_orgs()[0]
     logger.info('organization: %s', organization)
 
