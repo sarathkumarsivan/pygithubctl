@@ -29,11 +29,11 @@ def readme():
 
 
 setup(name='pygithubctl',
-      version='2.7.14',
+      version='2.7.15',
       description='The GitHub command-line tool, pygithubctl',
       long_description=readme(),
       classifiers=[
-          'Development Status :: 3 - Alpha',
+          'Development Status :: 5 - Production/Stable',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python :: 2.7'
       ],
