@@ -35,8 +35,7 @@ setup(name='pygithubctl',
       classifiers=[
           'Development Status :: 3 - Alpha',
           'License :: OSI Approved :: MIT License',
-          'Programming Language :: Python :: 2.7',
-          'Topic :: GitHub :: Command-line',
+          'Programming Language :: Python :: 2.7'
       ],
       keywords='pygithubctl githubctl',
       url='http://github.com/sarathkumarsivan/pygithubctl',
