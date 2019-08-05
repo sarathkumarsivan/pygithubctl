@@ -163,10 +163,11 @@ def main():
 
     if options.content_type.lower() in ('f', 'file'):
         destination = resolve_target(options.file_path, options.destination)
-        logger.info('destination: %s', destination)
+        logger.debug('destination: %s', destination)
         download_file(repository, sha, options.file_path, destination)
     elif options.content_type.lower() in ('d', 'dir', 'directory'):
         destination = options.destination
+        logger.debug('destination: %s', destination)
         download_directory(repository, sha, options.file_path, destination)
     else:
         raise ValueError('Value of --content_type should be either file or directory')
