@@ -1,5 +1,10 @@
 pygithubctl
 ===========
+
+.. image:: http://img.shields.io/badge/Docs-latest-green.svg
+.. image:: https://travis-ci.org/sarathkumarsivan/pygithubctl.svg?branch=master
+.. image:: https://img.shields.io/pypi/v/pygithubctl.svg
+
 The GitHub command-line tool, pygithubctl, allows you to fetch a single file GitHub repository.
 
 Install
