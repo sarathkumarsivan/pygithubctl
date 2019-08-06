@@ -39,8 +39,8 @@ You can run pygithubctl by issuing the below command. Below command downloads a 
    	   --auth_token a13d3ef34aa6d2ffe32c46f84f4f4998c5f3ed9a \
    	   --repository repository-name \
    	   --branch master \
-   	   --file_path README.md \
-   	   --content_type file \
+   	   --path README.md \
+   	   --type file \
    	   --destination /tmp \
    	   --http_ssl_verify False
 
