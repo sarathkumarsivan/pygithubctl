@@ -101,18 +101,19 @@ def mkdirs(path):
 
 def get_options():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--hostname', required=True)
-    parser.add_argument('--auth_token', required=True)
-    parser.add_argument('--repository', required=True)
-    parser.add_argument('--branch', required=False)
-    parser.add_argument('--tag', required=False)
-    parser.add_argument('--file_path', required=True)
-    parser.add_argument('--destination', required=True)
-    parser.add_argument("--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True,
-                        help="Enable/Disable HTTP SSL Verification")
-    parser.add_argument('--content_type', required=True)
-    args = parser.parse_args()
-    return args
+    subparsers = parser.add_subparsers(dest='command')
+    fetch = subparsers.add_parser('fetch', help='fetch file or directory')
+    fetch.add_argument('--hostname', required=True)
+    fetch.add_argument('--auth_token', required=True)
+    fetch.add_argument('--repository', required=True)
+    fetch.add_argument('--branch', required=False)
+    fetch.add_argument('--tag', required=False)
+    fetch.add_argument('--file_path', required=True)
+    fetch.add_argument('--content_type', required=True)
+    fetch.add_argument('--destination', required=True)
+    fetch.add_argument("--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True)
+    options = parser.parse_args()
+    return options
 
 
 def str_to_bool(value):
@@ -141,9 +142,7 @@ def get_base_url(hostname):
     return "https://{hostname}/api/v3".format(hostname=hostname)
 
 
-def main():
-    logger.info('Fetching file from GitHub repository')
-    options = get_options()
+def fetch(options):
     base_url = get_base_url(options.hostname)
     branch_or_tag = get_branch_or_tag(options)
 
@@ -170,6 +169,16 @@ def main():
         download_directory(repository, sha, options.file_path, destination)
     else:
         raise ValueError('Value of --content_type should be either file or directory')
+
+
+def main():
+    logger.info('Launching pygithubctl...')
+    options = get_options()
+    if options.command == 'fetch':
+        fetch(options)
+    else:
+        raise ValueError('Unknown option %s', options.command)
+    logger.info('Task completed.')
 
 
 if __name__ == '__main__':
