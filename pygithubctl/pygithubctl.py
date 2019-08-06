@@ -147,19 +147,18 @@ def main():
     base_url = get_base_url(options.hostname)
     branch_or_tag = get_branch_or_tag(options)
 
-    logger.info('base_url: %s', base_url)
-    logger.info('branch_or_tag: %s', branch_or_tag)
-
-    logger.info('http_ssl_verify: %s', options.http_ssl_verify)
-    logger.info('content_type: %s', options.content_type)
+    logger.debug('base_url: %s', base_url)
+    logger.debug('branch_or_tag: %s', branch_or_tag)
+    logger.debug('http_ssl_verify: %s', options.http_ssl_verify)
+    logger.debug('content_type: %s', options.content_type)
 
     github = Github(base_url=base_url, login_or_token=options.auth_token, verify=options.http_ssl_verify)
     organization = github.get_user().get_orgs()[0]
-    logger.info('organization: %s', organization)
+    logger.debug('organization: %s', organization)
 
     repository = organization.get_repo(options.repository)
     sha = get_sha(repository, branch_or_tag)
-    logger.info('sha: %s', sha)
+    logger.debug('sha: %s', sha)
 
     if options.content_type.lower() in ('f', 'file'):
         destination = resolve_target(options.file_path, options.destination)

@@ -6,7 +6,7 @@ pygithubctl
 .. |travis| image:: https://travis-ci.org/sarathkumarsivan/pygithubctl.svg?branch=master
 .. |pypi| image:: https://img.shields.io/pypi/v/pygithubctl.svg
 
-The GitHub command-line tool, pygithubctl, allows you to fetch a single file GitHub repository.
+The GitHub command-line tool, pygithubctl, allows you to fetch a single file or all files and directories from the given path in a GitHub repository.
 
 Install
 -------
