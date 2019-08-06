@@ -25,14 +25,14 @@ import base64
 import os
 import logging
 import errno
+import urllib3
 
 from github import Github
 from github import GithubException
 from configurer import configure_logging
 
 
-logger = configure_logging(logging.getLogger('pygithubctl'))
-logging.getLogger('github').setLevel(logging.ERROR)
+logger = logging.getLogger('pygithubctl')
 
 
 def download_file(repository, sha, source, target):
@@ -51,7 +51,7 @@ def download_directory(repository, sha, source, target):
     try:
         contents = repository.get_dir_contents(source, ref=sha)
         for content in contents:
-            logger.info("Processing %s", content.path)
+            logger.info("Downloading %s", content.path)
             if content.type == 'dir':
                 download_directory(repository, sha, content.path, target)
             else:
@@ -102,18 +102,49 @@ def mkdirs(path):
 
 
 def get_options():
+    """Get the command-line options for executing each commands.
+
+    :param: None
+    :returns: map options: Options supplied from command-line
+    :raises: None
+
+    """
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--verbose', help="Enable debug level logging", action="store_const",
+        dest="logging_level", const=logging.DEBUG, default=logging.INFO)
+    parser.add_argument(
+        '--quite', help="Squelch reporting of during file transfer",
+        action="store_const", dest="logging_level", const=logging.CRITICAL)
     subparsers = parser.add_subparsers(dest='command')
-    fetch = subparsers.add_parser('fetch', help='fetch file or directory')
-    fetch.add_argument('--hostname', required=True)
-    fetch.add_argument('--auth_token', required=True)
-    fetch.add_argument('--repository', required=True)
-    fetch.add_argument('--branch', required=False)
-    fetch.add_argument('--tag', required=False)
-    fetch.add_argument('--path', required=True)
-    fetch.add_argument('--type', required=True)
-    fetch.add_argument('--destination', required=True)
-    fetch.add_argument("--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True)
+    fetch = subparsers.add_parser('fetch', help='Fetch file or directory')
+    fetch.add_argument(
+        '--hostname', required=True,
+        help='Hostname of your GitHub server')
+    fetch.add_argument(
+        '--auth_token', required=True,
+        help='A personal access token to authenticate to GitHub')
+    fetch.add_argument(
+        '--repository', required=True,
+        help='Name of GitHub repository')
+    fetch.add_argument(
+        '--branch', required=False,
+        help='Name of branch; a pointer to a snapshot of your changes')
+    fetch.add_argument(
+        '--tag', required=False,
+        help='Name of tag; a version of a particular branch at a moment in time')
+    fetch.add_argument(
+        '--path', required=True,
+        help='A specific file or directory path in your repository to download')
+    fetch.add_argument(
+        '--type', required=True,
+        help='Indicates the given path is a file or directory')
+    fetch.add_argument(
+        '--destination', required=True,
+        help='Destination directory path to download the file(s)')
+    fetch.add_argument(
+        "--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True,
+        help='Boolean flag to enable or disable the SSL certificate verification')
     options = parser.parse_args()
     return options
 
@@ -189,8 +220,11 @@ def fetch(options):
 
 
 def main():
-    logger.info('Launching pygithubctl...')
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     options = get_options()
+    logging.basicConfig(level=options.logging_level)
+    configure_logging(logger)
+
     if options.command == 'fetch':
         fetch(options)
     else:
