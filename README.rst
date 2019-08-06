@@ -57,7 +57,7 @@ Options
   Name of GitHub repository. Please make sure the value of repository is valid. This option is required.
 
 **--branch:**
-  Name of branch; a pointer to a snapshot of your changes. This option is required if no tag is specified. The master branch would be considered as the default value if no branch or tag is specified.
+  Name of the branch; a pointer to a snapshot of your changes. This option is required if no tag is specified. The master branch would be considered as the default value if no branch or tag name is specified.
 
 **--tag:**
   Name of tag; a version of a particular branch at a moment in time. This option is required if no branch is specified.
@@ -66,13 +66,13 @@ Options
   A specific file or directory path in your repository to download. Make sure the value of this option should be a valid repository path. This option is required.
 
 **--type:**
-  Indicates the given path is a file or directory. You can specify the value f or file if the requested path is a file and d or dir for a directory. This option is required.
+  Indicates whether the given path is a file or directory. You can specify the value of this option to f or file if the requested path is a file and d or dir for a directory. This option is required.
 
 **--destination:**
-  Destination directory path to download the file(s). Make sure the user who runs this command has write permission to download the file in this directory. Current directory would be considered as the default destination if this option is not specified while running the fetch command. This option is optional.
+  Destination directory path to download the file(s). Make sure the user who runs this command has write permission to download the file in the target directory. Present working directory would be considered as the default destination if this option is not specified while running the fetch command. This option is optional.
 
 **--http_ssl_verify:**
-  Boolean flag to enable or disable the SSL certificate verification. This is option is enabled by default and you should specify the value of http_ssl_verify False if you want to disable SSL certificate verification. This option is optional.
+  Boolean flag to enable or disable the SSL certificate verification. This is option is enabled by default and you should specify the value of http_ssl_verify to False if you want to disable SSL certificate verification. This option is optional.
 
 **--verbose:**
   Enable debug level logging.
