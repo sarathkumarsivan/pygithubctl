@@ -29,7 +29,7 @@ You can upgrade pygithubctl via pip, the Python package manager; issue the below
 
     sudo pip install pygithubctl --upgrade
 
-Run
+Usage
 -------
 You can run pygithubctl by issuing the below command. Below command downloads a single file named README.md from <repository-name> repository.
 ::
@@ -44,6 +44,41 @@ You can run pygithubctl by issuing the below command. Below command downloads a 
    	   --destination /tmp \
    	   --http_ssl_verify False
 
+Options
+#######
+
+--hostname:
+Hostname of your GitHub enterprise server. This option is required for accessing enterprise GitHub server.
+
+--auth_token:
+A personal access token to authenticate to GitHub server. This option is required if you are not using user credentials to authenticate the GitHub server.
+
+--repository:
+Name of GitHub repository. Please make sure the value of repository is valid. This option is required.
+
+--branch:
+Name of branch; a pointer to a snapshot of your changes. This option is required if no tag is specified. The master branch would be considered as the default value if no branch or tag is specified.
+
+--tag:
+Name of tag; a version of a particular branch at a moment in time. This option is required if no branch is specified.
+
+--path:
+A specific file or directory path in your repository to download. Make sure the value of this option should be a valid repository path. This option is required.
+
+--type:
+Indicates the given path is a file or directory. You can specify the value f or file if the requested path is a file and d or dir for a directory. This option is required.
+
+--destination:
+Destination directory path to download the file(s). Make sure the user who runs this command has write permission to download the file in this directory. Current directory would be considered as the default destination if this parameter is not specified while running the fetch command. This option is optional.
+
+--http_ssl_verify:
+Boolean flag to enable or disable the SSL certificate verification. This is option is enabled by default and you should specify the value of http_ssl_verify False if you want to disable SSL certificate verification. This option is optional.
+
+--verbose:
+Enable debug level logging.
+
+--quiet:
+Make little or no noise during the file transfer.
 
 Supports
 --------

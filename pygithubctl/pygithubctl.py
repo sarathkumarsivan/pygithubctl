@@ -31,8 +31,7 @@ from github import Github
 from github import GithubException
 from configurer import configure_logging
 
-
-logger = logging.getLogger('pygithubctl')
+logger = configure_logging(logging.getLogger('pygithubctl'))
 
 
 def download_file(repository, sha, source, target):
@@ -44,7 +43,7 @@ def download_file(repository, sha, source, target):
         output.write(data)
         output.close()
     except (GithubException, IOError) as exception:
-        logging.error('Error processing %s: %s', source, exception)
+        logger.error('Error processing %s: %s', source, exception)
 
 
 def download_directory(repository, sha, source, target):
@@ -65,7 +64,7 @@ def download_directory(repository, sha, source, target):
                 output.write(data)
                 output.close()
     except (GithubException, IOError) as exception:
-        logging.error('Error processing %s: %s', content.path, exception)
+        logger.error('Error processing %s: %s', content.path, exception)
 
 
 def get_sha(repository, tag):
@@ -114,12 +113,12 @@ def get_options():
         '--verbose', help="Enable debug level logging", action="store_const",
         dest="logging_level", const=logging.DEBUG, default=logging.INFO)
     parser.add_argument(
-        '--quite', help="Squelch reporting of during file transfer",
+        '--quiet', help="Make little or no noise during the file transfer",
         action="store_const", dest="logging_level", const=logging.CRITICAL)
     subparsers = parser.add_subparsers(dest='command')
     fetch = subparsers.add_parser('fetch', help='Fetch file or directory')
     fetch.add_argument(
-        '--hostname', required=True,
+        '--hostname', required=False,
         help='Hostname of your GitHub server')
     fetch.add_argument(
         '--auth_token', required=True,
@@ -174,12 +173,14 @@ def get_base_url(hostname):
 
     :param str hostname: Hostname to construct the API endpoint url.
     :returns: None
-    :raises: ValueError
+    :raises: None
 
     """
-    if not hostname:
-        raise ValueError('hostname must not be blank on empty')
-    return "https://{hostname}/api/v3".format(hostname=hostname)
+    if hostname and hostname.startswith('http'):
+        return hostname
+    else:
+        return "https://{hostname}/api/v3".format(hostname=hostname)
+    return hostname
 
 
 def fetch(options):
@@ -199,7 +200,15 @@ def fetch(options):
     logger.debug('http_ssl_verify: %s', options.http_ssl_verify)
     logger.debug('type: %s', options.type)
 
-    github = Github(base_url=base_url, login_or_token=options.auth_token, verify=options.http_ssl_verify)
+    github = None
+    if options.hostname:
+        github = Github(
+            base_url=base_url,
+            login_or_token=options.auth_token,
+            verify=options.http_ssl_verify)
+    else:
+        github = Github(options.auth_token)
+
     organization = github.get_user().get_orgs()[0]
     logger.debug('organization: %s', organization)
 
@@ -222,8 +231,7 @@ def fetch(options):
 def main():
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     options = get_options()
-    logging.basicConfig(level=options.logging_level)
-    configure_logging(logger)
+    logger.setLevel(level=options.logging_level)
 
     if options.command == 'fetch':
         fetch(options)

@@ -30,3 +30,4 @@ def configure_logging(logger):
     handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
+    return logger
