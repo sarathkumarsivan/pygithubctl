@@ -10,14 +10,21 @@ The GitHub command-line tool, pygithubctl, allows you to fetch a single file or 
 
 Install
 -------
-
+You can install the pygithubctl by issuing the below command:
 ::
 
-    pip install pygithubctl
+    sudo pip install pygithubctl
+
+Upgrade
+-------
+You can upgrade the pygithubctl by issuing the below command:
+::
+
+    sudo pip install pygithubctl --upgrade
 
 Run
 -------
-
+You run pygithubctl by issuing the below command.
 ::
 
     pygithubctl --hostname github.your.company.com \
