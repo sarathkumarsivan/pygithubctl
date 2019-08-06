@@ -30,7 +30,9 @@ from github import Github
 from github import GithubException
 from configurer import configure_logging
 
+
 logger = configure_logging(logging.getLogger('pygithubctl'))
+logging.getLogger('github').setLevel(logging.ERROR)
 
 
 def download_file(repository, sha, source, target):
@@ -108,8 +110,8 @@ def get_options():
     fetch.add_argument('--repository', required=True)
     fetch.add_argument('--branch', required=False)
     fetch.add_argument('--tag', required=False)
-    fetch.add_argument('--file_path', required=True)
-    fetch.add_argument('--content_type', required=True)
+    fetch.add_argument('--path', required=True)
+    fetch.add_argument('--type', required=True)
     fetch.add_argument('--destination', required=True)
     fetch.add_argument("--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True)
     options = parser.parse_args()
@@ -137,19 +139,34 @@ def get_branch_or_tag(options):
 
 
 def get_base_url(hostname):
+    """Constructs the GitHub API url with the given hostname.
+
+    :param str hostname: Hostname to construct the API endpoint url.
+    :returns: None
+    :raises: ValueError
+
+    """
     if not hostname:
         raise ValueError('hostname must not be blank on empty')
     return "https://{hostname}/api/v3".format(hostname=hostname)
 
 
 def fetch(options):
+    """Fetch a specific file, folder or directory from a remote Git repository
+    hosted on GitHub.
+
+    :param map options: Options supplied from command-line to fetch the file/dir.
+    :returns: None
+    :raises: ValueError
+
+    """
     base_url = get_base_url(options.hostname)
     branch_or_tag = get_branch_or_tag(options)
 
     logger.debug('base_url: %s', base_url)
     logger.debug('branch_or_tag: %s', branch_or_tag)
     logger.debug('http_ssl_verify: %s', options.http_ssl_verify)
-    logger.debug('content_type: %s', options.content_type)
+    logger.debug('type: %s', options.type)
 
     github = Github(base_url=base_url, login_or_token=options.auth_token, verify=options.http_ssl_verify)
     organization = github.get_user().get_orgs()[0]
@@ -159,16 +176,16 @@ def fetch(options):
     sha = get_sha(repository, branch_or_tag)
     logger.debug('sha: %s', sha)
 
-    if options.content_type.lower() in ('f', 'file'):
-        destination = resolve_target(options.file_path, options.destination)
+    if options.type.lower() in ('f', 'file'):
+        destination = resolve_target(options.path, options.destination)
         logger.debug('destination: %s', destination)
-        download_file(repository, sha, options.file_path, destination)
-    elif options.content_type.lower() in ('d', 'dir', 'directory'):
+        download_file(repository, sha, options.path, destination)
+    elif options.type.lower() in ('d', 'dir', 'directory'):
         destination = options.destination
         logger.debug('destination: %s', destination)
-        download_directory(repository, sha, options.file_path, destination)
+        download_directory(repository, sha, options.path, destination)
     else:
-        raise ValueError('Value of --content_type should be either file or directory')
+        raise ValueError('Value of --type should be either file or directory')
 
 
 def main():
