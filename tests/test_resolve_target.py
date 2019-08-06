@@ -22,14 +22,21 @@
 
 from unittest import TestCase
 
-import pygithubctl
+from pygithubctl.pygithubctl import resolve_target
 
 
 class TestResolveTarget(TestCase):
 
-    def test_resolve_target(self):
+    def test_resolve_target1(self):
         source = "/var/lib/pygithubctl/README.rst"
         target = "/tmp"
         expected = "/tmp/README.rst"
-        actual = pygithubctl.resolve_target()
-        self.assertTrue(isinstance(actual, expected))
+        actual = resolve_target(source, target)
+        self.assertTrue(actual, expected)
+
+    def test_resolve_target2(self):
+        source = "/var/lib/pygithubctl"
+        target = "/tmp"
+        expected = "/tmp"
+        actual = resolve_target(source, target)
+        self.assertTrue(actual, expected)

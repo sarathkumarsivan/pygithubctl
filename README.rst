@@ -32,6 +32,7 @@ You run pygithubctl by issuing the below command.
                 --repository your-repository \
                 --branch master \
                 --file_path README.md \
+                --content_type file \
                 --destination /tmp \
                 --http_ssl_verify False
 
