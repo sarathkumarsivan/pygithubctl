@@ -121,8 +121,17 @@ def get_options():
         '--hostname', required=False,
         help='Hostname of your GitHub server')
     fetch.add_argument(
-        '--auth_token', required=True,
+        '--auth-token', required=True,
         help='A personal access token to authenticate to GitHub')
+    fetch.add_argument(
+        '--owner', required=False,
+        help='Owner of the Git repository hosted on GitHub')
+    fetch.add_argument(
+        '--username', required=False,
+        help='Username to authenticate GitHub server')
+    fetch.add_argument(
+        '--password', required=False,
+        help='Password to authenticate GitHub server')
     fetch.add_argument(
         '--repository', required=True,
         help='Name of GitHub repository')
@@ -142,7 +151,7 @@ def get_options():
         '--destination', required=True,
         help='Destination directory path to download the file(s)')
     fetch.add_argument(
-        "--http_ssl_verify", type=str_to_bool, nargs='?', const=True, default=True,
+        "--http-ssl-verify", type=str_to_bool, nargs='?', const=True, default=True,
         help='Boolean flag to enable or disable the SSL certificate verification')
     options = parser.parse_args()
     return options
@@ -201,18 +210,22 @@ def fetch(options):
     logger.debug('type: %s', options.type)
 
     github = None
+    repository = None
+
     if options.hostname:
-        github = Github(
-            base_url=base_url,
-            login_or_token=options.auth_token,
-            verify=options.http_ssl_verify)
+        github = Github(base_url=base_url, login_or_token=options.auth_token,
+                        verify=options.http_ssl_verify)
+        organizations = github.get_user().get_orgs()
+        logger.debug('github.get_user(): %s', github.get_user())
+        logger.debug('organizations.totalCount: %s', organizations.totalCount)
+        organization = organizations[0]
+        logger.debug('organization: %s', organization)
+        repository = organization.get_repo(options.repository)
     else:
         github = Github(options.auth_token)
+        repository = github.get_repo("{owner}/{repository}".format(
+            owner=options.owner, repository=options.repository))
 
-    organization = github.get_user().get_orgs()[0]
-    logger.debug('organization: %s', organization)
-
-    repository = organization.get_repo(options.repository)
     sha = get_sha(repository, branch_or_tag)
     logger.debug('sha: %s', sha)
 
