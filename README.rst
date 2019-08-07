@@ -48,7 +48,7 @@ You can use pygithubctl by issuing the pygithubctl command. Below command downlo
 If you would like to download a file from public GitHub server, you can issue something like this. Please note that you should not specify the value of hostname in this case.
 ::
 
-    python pygithubctl/pygithubctl.py fetch \
+    pygithubctl fetch \
     	--auth-token <valid-token> \
     	--repository pygithubctl \
     	--owner sarathkumarsivan \
