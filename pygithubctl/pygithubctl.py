@@ -58,7 +58,7 @@ def download_directory(repository, sha, source, target):
                 contents = repository.get_contents(path, ref=sha)
                 data = base64.b64decode(contents.content)
                 destination = os.path.join(target, path)
-                logger.debug("destination %s", destination)
+                logger.debug("Destination Path: %s", destination)
                 mkdirs(os.path.join(target, os.path.dirname(path)))
                 output = open(destination, "w")
                 output.write(data)
