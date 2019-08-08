@@ -31,7 +31,7 @@ from github import Github
 from github import GithubException
 from configurer import configure_logging
 
-
+# Logger instance for pygithubctl.
 logger = configure_logging(logging.getLogger('pygithubctl'))
 
 
@@ -159,6 +159,15 @@ def get_options():
 
 
 def str_to_bool(value):
+    """Convert the string representation of a boolean value to boolean.
+    Returns True the input value is 'yes', 'true', 't', 'y', '1' and False
+    if the 'no', 'false', 'f', 'n', '0'.
+
+    :param str value: string representation of a boolean value
+    :returns: True or False based on the input value.
+    :raises: ArgumentTypeError
+
+    """
     if isinstance(value, bool):
         return value
     if value.lower() in ('yes', 'true', 't', 'y', '1'):
