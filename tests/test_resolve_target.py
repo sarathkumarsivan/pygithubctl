@@ -40,3 +40,10 @@ class TestResolveTarget(TestCase):
         expected = "/tmp"
         actual = resolve_target(source, target)
         self.assertTrue(actual, expected)
+
+    def test_resolve_target3(self):
+        source = "/var/lib/pygithubctl"
+        target = "."
+        expected = "."
+        actual = resolve_target(source, target)
+        self.assertTrue(actual, expected)

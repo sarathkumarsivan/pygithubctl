@@ -192,6 +192,23 @@ def get_base_url(hostname):
     return hostname
 
 
+def get_github(options):
+    if options.hostname and options.auth_token:
+        base_url = get_base_url(options.hostname)
+        return Github(base_url=base_url, login_or_token=options.auth_token,
+                      verify=options.http_ssl_verify)
+    elif options.hostname and options.username and options.password:
+        base_url = get_base_url(options.hostname)
+        return Github(base_url=base_url, login_or_token=options.username,
+                      password=options.password, verify=options.http_ssl_verify)
+    elif not options.hostname and options.auth_token:
+        return Github(options.auth_token)
+    elif not options.hostname and options.username and options.password:
+        return Github(options.username, options.password)
+    else:
+        raise GithubException("Unable to authenticate GitHub server!")
+
+
 def fetch(options):
     """Fetch a specific file, folder or directory from a remote Git repository
     hosted on GitHub.
@@ -212,9 +229,9 @@ def fetch(options):
     github = None
     repository = None
 
+    github = get_github(options)
+
     if options.hostname:
-        github = Github(base_url=base_url, login_or_token=options.auth_token,
-                        verify=options.http_ssl_verify)
         organizations = github.get_user().get_orgs()
         logger.debug('github.get_user(): %s', github.get_user())
         logger.debug('organizations.totalCount: %s', organizations.totalCount)
@@ -222,7 +239,6 @@ def fetch(options):
         logger.debug('organization: %s', organization)
         repository = organization.get_repo(options.repository)
     else:
-        github = Github(options.auth_token)
         repository = github.get_repo("{owner}/{repository}".format(
             owner=options.owner, repository=options.repository))
 
