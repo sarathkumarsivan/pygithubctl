@@ -60,7 +60,7 @@ def download_directory(repository, sha, source, target):
                 data = base64.b64decode(contents.content)
                 destination = os.path.join(target, path)
                 logger.debug("Destination Path: %s", destination)
-                mkdirs(os.path.join(target, os.path.dirname(path)))
+                makedirs(os.path.join(target, os.path.dirname(path)))
                 output = open(destination, "w")
                 output.write(data)
                 output.close()
@@ -91,7 +91,15 @@ def resolve_target(source, target):
         return target
 
 
-def mkdirs(path):
+def makedirs(path):
+    """Create a leaf directory and all intermediate ones. It ignores
+    the error if
+
+    :param (str) path: None
+    :returns: None
+    :raises: None
+
+    """
     try:
         os.makedirs(path)
     except OSError as err:
