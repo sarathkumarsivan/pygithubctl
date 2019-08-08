@@ -8,5 +8,8 @@ dist
 *.egg-info
 *.egg
 
+.eggs
 build
 .secret
+.pytest_cache
+pygithubctl.egg-info
