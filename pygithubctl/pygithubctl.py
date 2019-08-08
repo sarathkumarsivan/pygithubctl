@@ -31,6 +31,7 @@ from github import Github
 from github import GithubException
 from configurer import configure_logging
 
+
 logger = configure_logging(logging.getLogger('pygithubctl'))
 
 
@@ -43,7 +44,7 @@ def download_file(repository, sha, source, target):
         output.write(data)
         output.close()
     except (GithubException, IOError) as exception:
-        logger.error('Error processing %s: %s', source, exception)
+        logger.error('Error downloading %s: %s', source, exception)
 
 
 def download_directory(repository, sha, source, target):
@@ -64,7 +65,7 @@ def download_directory(repository, sha, source, target):
                 output.write(data)
                 output.close()
     except (GithubException, IOError) as exception:
-        logger.error('Error processing %s: %s', content.path, exception)
+        logger.error('Error downloading %s: %s', content.path, exception)
 
 
 def get_sha(repository, tag):
