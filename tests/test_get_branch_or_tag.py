@@ -22,4 +22,23 @@
 
 from unittest import TestCase
 
-from pygithubctl.pygithubctl import resolve_target
+from pygithubctl.pygithubctl import get_branch_or_tag
+from pygithubctl.pygithubctl import get_options
+
+
+class TestGetBranchOrTag(TestCase):
+
+    def test_get_branch_or_tag(self):
+        expected = "dev"
+        options = get_options(['fetch',
+                               '--auth-token', 'someToken',
+                               '--repository', 'pygithubctl',
+                               '--owner', 'sarathkumarsivan',
+                               '--branch', 'dev',
+                               '--path', 'README.rst',
+                               '--type', 'file',
+                               '--destination', '/tmp',
+                               '--http-ssl-verify', 'True']
+                              )
+        actual = get_branch_or_tag(options)
+        self.assertEqual(actual, expected)
