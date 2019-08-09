@@ -26,6 +26,7 @@ import os
 import logging
 import errno
 import urllib3
+import sys
 
 from github import Github
 from github import GithubException
@@ -109,7 +110,7 @@ def makedirs(path):
             raise
 
 
-def get_options():
+def get_options(args):
     """Get the command-line options for executing each commands.
 
     :param: None
@@ -162,7 +163,7 @@ def get_options():
     fetch.add_argument(
         "--http-ssl-verify", type=str_to_bool, nargs='?', const=True, default=True,
         help='Boolean flag to enable or disable the SSL certificate verification')
-    options = parser.parse_args()
+    options = parser.parse_args(args)
     return options
 
 
@@ -277,7 +278,7 @@ def fetch(options):
 
 def main():
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    options = get_options()
+    options = get_options(sys.argv[1:])
     logger.setLevel(level=options.logging_level)
 
     if options.command == 'fetch':
