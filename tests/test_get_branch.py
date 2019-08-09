@@ -68,3 +68,18 @@ class TestGetBranch(TestCase):
                                '--http-ssl-verify', 'True'])
         actual = get_branch_or_tag(options)
         self.assertEqual(actual, expected)
+
+    def test_with_branch_tag_option(self):
+        expected = "dev"
+        options = get_options(['fetch',
+                               '--auth-token', 'someToken',
+                               '--repository', 'pygithubctl',
+                               '--owner', 'sarathkumarsivan',
+                               '--branch', 'dev',
+                               '--tag', 'release-1.0',
+                               '--path', 'README.rst',
+                               '--type', 'file',
+                               '--destination', '/tmp',
+                               '--http-ssl-verify', 'True'])
+        actual = get_branch_or_tag(options)
+        self.assertEqual(actual, expected)
