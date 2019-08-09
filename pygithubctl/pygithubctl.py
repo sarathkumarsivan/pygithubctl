@@ -191,7 +191,7 @@ def get_branch_or_tag(options):
     branch_or_tag = "master"
     if options.branch:
         branch_or_tag = options.branch
-    if options.tag:
+    elif options.tag:
         branch_or_tag = options.tag
     return branch_or_tag
 
