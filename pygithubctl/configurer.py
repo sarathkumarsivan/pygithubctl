@@ -23,9 +23,11 @@
 import logging
 import sys
 
+LOGGING_FORMATTER_DEFAULT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
 
 def configure_logging(logger):
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    formatter = logging.Formatter(LOGGING_FORMATTER_DEFAULT)
     #logger.setLevel(logging.INFO)
     handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(formatter)
