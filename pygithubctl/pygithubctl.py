@@ -188,12 +188,11 @@ def str_to_bool(value):
 
 
 def get_branch_or_tag(options):
-    branch_or_tag = "master"
     if options.branch:
-        branch_or_tag = options.branch
+        return options.branch
     elif options.tag:
-        branch_or_tag = options.tag
-    return branch_or_tag
+        return options.tag
+    return "master"
 
 
 def get_base_url(hostname):
