@@ -25,7 +25,7 @@ Then install pygithubctl
 
 Upgrade
 -------
-You can upgrade pygithubctl via pip, the Python package manager; issue the below command to perform the upgrade:
+You can upgrade pygithubctl via pip; issue the below command to perform the upgrade:
 ::
 
     sudo pip install pygithubctl --upgrade
