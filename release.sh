@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-rm -rf dist build pygithubctl.egg-info
+rm -rf dist build pygithubctl.egg-info .eggs .pytest_cache
 
 python setup.py sdist
 
