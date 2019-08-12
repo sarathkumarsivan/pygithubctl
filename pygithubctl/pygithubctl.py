@@ -87,6 +87,17 @@ def get_sha(repository, tag):
 
 
 def resolve_target(source, target):
+    """Resolve the target path with source value. If the target is a
+    valid filename it would be returned as such. If the target is a
+    valid directory, name of the file would be extracted from the source
+    path and created the final absolute path of the target filename.
+
+    :param: source (str): Absolute path of the source filename in GitHub
+    :param: target (str): Path of filename of directory name of the target
+    :returns: target (str): Absolute path of the target filename
+    :raises: None
+
+    """
     if os.path.isdir(target):
         filename = os.path.basename(source)
         return os.path.join(target, filename)
