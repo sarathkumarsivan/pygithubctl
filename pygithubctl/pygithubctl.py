@@ -115,7 +115,7 @@ def makedirs(path):
 def get_options(args):
     """Get the command-line options for executing each commands.
 
-    :param: None
+    :param: args
     :returns: map options: Options supplied from command-line
     :raises: None
 
