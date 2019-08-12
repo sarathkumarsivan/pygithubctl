@@ -72,6 +72,18 @@ def download_directory(repository, sha, source, target):
 
 
 def get_sha(repository, tag):
+    """Get the  unique ID against the commit of a given tag or branch. A commit,
+    or "revision", is an individual change to a file (or set of files). It's like
+    when you save a file, except with Git, every time you save it creates a unique
+    ID (a.k.a. the "SHA" or "hash") that allows you to keep record of what changes
+    were made when and by who.
+
+    :param: repository (str): Git repository name hosted on GitHub server.
+    :param: tag (str): Name of branch or tag name of the Git repository.
+    :returns: sha (str): Absolute path of the target filename
+    :raises: ValueError: If no Tag or Branch exists with that name
+
+    """
     branches = repository.get_branches()
     matched_branches = [match for match in branches if match.name == tag]
 
