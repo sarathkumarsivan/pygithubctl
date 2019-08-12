@@ -190,6 +190,17 @@ def str_to_bool(value):
 
 
 def get_branch_or_tag(options):
+    """Get the value of branch or tag from the given list of options.
+    If the value of branch option is provided in the commandline, that
+    value would be returned.If the value of tag is provided with branch,
+    branch would be returned. If the value of tag is provided without branch,
+    tag would be returned. Branch name is considered as master if no value for
+    branch or tag is provided in commandline.
+    :param str hostname: Hostname to construct the API endpoint url.
+    :returns: None
+    :raises: None
+
+    """
     if options.branch:
         return options.branch
     elif options.tag:
