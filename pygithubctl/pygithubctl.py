@@ -72,7 +72,8 @@ def download_directory(repository, sha, source, target):
 
 
 def get_sha(repository, tag):
-    """Get the  unique ID against the commit of a given tag or branch. A commit,
+    """
+    Get the  unique ID against the commit of a given tag or branch. A commit,
     or "revision", is an individual change to a file (or set of files). It's like
     when you save a file, except with Git, every time you save it creates a unique
     ID (a.k.a. the "SHA" or "hash") that allows you to keep record of what changes
