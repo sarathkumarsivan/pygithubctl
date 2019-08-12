@@ -83,7 +83,6 @@ def get_sha(repository, tag):
     :param: tag (str): Name of branch or tag name of the Git repository.
     :returns: sha (str): Absolute path of the target filename
     :raises: ValueError: If no Tag or Branch exists with that name
-
     """
     branches = repository.get_branches()
     matched_branches = [match for match in branches if match.name == tag]
@@ -100,7 +99,8 @@ def get_sha(repository, tag):
 
 
 def resolve_target(source, target):
-    """Resolve the target path with source value. If the target is a
+    """
+    Resolve the target path with source value. If the target is a
     valid filename it would be returned as such. If the target is a
     valid directory, name of the file would be extracted from the source
     path and created the final absolute path of the target filename.
@@ -109,7 +109,6 @@ def resolve_target(source, target):
     :param: target (str): Path of filename of directory name of the target
     :returns: target (str): Absolute path of the target filename
     :raises: None
-
     """
     if os.path.isdir(target):
         filename = os.path.basename(source)
@@ -119,13 +118,13 @@ def resolve_target(source, target):
 
 
 def makedirs(path):
-    """Create a leaf directory and all intermediate ones. Ignores the error
+    """
+    Create a leaf directory and all intermediate ones. Ignores the error
      if the give path (absolute path) exists on the local file system.
 
     :param (str) path: None
     :returns: None
     :raises: None
-
     """
     try:
         os.makedirs(path)
@@ -137,12 +136,12 @@ def makedirs(path):
 
 
 def get_options(args):
-    """Get the command-line options for executing each commands.
+    """
+    Get the command-line options for executing each commands.
 
     :param: args
     :returns: map options: Options supplied from command-line
     :raises: None
-
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -194,14 +193,14 @@ def get_options(args):
 
 
 def str_to_bool(value):
-    """Convert the string representation of a boolean value to boolean.
+    """
+    Convert the string representation of a boolean value to boolean.
     Returns True the input value is 'yes', 'true', 't', 'y', '1' and False
     if the 'no', 'false', 'f', 'n', '0'.
 
     :param str value: string representation of a boolean value
     :returns: True or False based on the input value.
     :raises: ArgumentTypeError
-
     """
     if isinstance(value, bool):
         return value
@@ -214,7 +213,8 @@ def str_to_bool(value):
 
 
 def get_branch_or_tag(options):
-    """Get the value of branch or tag from the given list of options. If the
+    """
+    Get the value of branch or tag from the given list of options. If the
     value of branch option is provided in the commandline, that value would be
     returned. If the value of tag is provided with branch, branch name would be
     returned. If the value of tag is provided without branch, tag name would be
@@ -224,7 +224,6 @@ def get_branch_or_tag(options):
     :param str hostname: Hostname to construct the API endpoint url.
     :returns str: Provided branch name, tag name or master by default.
     :raises: None
-
     """
     if options.branch:
         return options.branch
@@ -234,12 +233,12 @@ def get_branch_or_tag(options):
 
 
 def get_base_url(hostname):
-    """Constructs the GitHub API url with the given hostname.
+    """
+    Constructs the GitHub API url with the given hostname.
 
     :param str hostname: Hostname to construct the API endpoint url.
     :returns: None
     :raises: None
-
     """
     if hostname and hostname.startswith('http'):
         return hostname
@@ -266,13 +265,13 @@ def get_github(options):
 
 
 def fetch(options):
-    """Fetch a specific file, folder or directory from a remote Git repository
+    """
+    Fetch a specific file, folder or directory from a remote Git repository
     hosted on GitHub.
 
     :param map options: Options supplied from command-line to fetch the file/dir.
     :returns: None
     :raises: ValueError
-
     """
     base_url = get_base_url(options.hostname)
     branch_or_tag = get_branch_or_tag(options)
