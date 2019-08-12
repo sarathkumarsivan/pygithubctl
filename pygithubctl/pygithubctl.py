@@ -274,7 +274,7 @@ def fetch(options):
             owner=options.owner, repository=options.repository))
 
     sha = get_sha(repository, branch_or_tag)
-    logger.debug('sha: %s', sha)
+    logger.debug('sha or hash: %s', sha)
 
     if options.type.lower() in ('f', 'file'):
         destination = resolve_target(options.path, options.destination)
