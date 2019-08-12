@@ -197,7 +197,7 @@ def get_branch_or_tag(options):
     tag would be returned. Branch name is considered as master if no value for
     branch or tag is provided in commandline.
     :param str hostname: Hostname to construct the API endpoint url.
-    :returns: None
+    :returns: Provided branch name, tag name or master by default
     :raises: None
 
     """
