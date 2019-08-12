@@ -118,8 +118,8 @@ def resolve_target(source, target):
 
 
 def makedirs(path):
-    """Create a leaf directory and all intermediate ones. It ignores
-    the error if
+    """Create a leaf directory and all intermediate ones. Ignores the error
+     if the give path (absolute path) exists on the local file system.
 
     :param (str) path: None
     :returns: None
@@ -221,7 +221,7 @@ def get_branch_or_tag(options):
     is provided in commandline.
 
     :param str hostname: Hostname to construct the API endpoint url.
-    :returns: Provided branch name, tag name or master by default
+    :returns str: Provided branch name, tag name or master by default.
     :raises: None
 
     """
