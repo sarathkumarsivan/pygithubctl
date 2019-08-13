@@ -29,7 +29,7 @@ def readme():
 
 
 setup(name='pygithubctl',
-      version='2.7.21',
+      version='2.7.22',
       description='The GitHub command-line tool, pygithubctl',
       long_description=readme(),
       classifiers=[
