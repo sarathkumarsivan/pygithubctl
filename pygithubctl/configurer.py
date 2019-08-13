@@ -25,6 +25,16 @@ import sys
 
 
 def configure_logging_console(logger, format):
+    """
+    Configure and enable console logging with the given format. The logging
+    level must be explicitly set before the configuration or after the
+    configuration from the caller.
+
+    :param logger: Logger instance to be added to StreamHandler for console.
+    :param format: Logging format to be added to StreamHandler for console.
+    :returns: Logger instance after enabling console logging.
+    :raises: None
+    """
     formatter = logging.Formatter(format)
     handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(formatter)
