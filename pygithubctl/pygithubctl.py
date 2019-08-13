@@ -38,6 +38,17 @@ logger = configure_logging_console(logging.getLogger('pygithubctl'), format)
 
 
 def download_file(repository, sha, source, target):
+    """
+    Downloads a single source file from the Git repository hosted on remote
+    GitHub server to your local file system.
+
+    :param repository: Git repository hosted on GitHub server
+    :param sha: unique ID (a.k.a. the "SHA" or "hash") against the commit
+    :param source: Path of resources on Git repository hosted on GitHub server.
+    :param target: Path of target file on the local filesystem or disk.
+    :returns: None
+    :raises: GithubException: If there is any failure during download.
+    """
     logger.info('Fetching %s from %s', source, repository)
     try:
         contents = repository.get_contents(source, ref=sha)
@@ -47,6 +58,7 @@ def download_file(repository, sha, source, target):
         output.close()
     except (GithubException, IOError) as exception:
         logger.error('Error downloading %s: %s', source, exception)
+        raise GithubException("Failed to download the resource %s", source)
 
 
 def download_directory(repository, sha, source, target):
@@ -59,7 +71,7 @@ def download_directory(repository, sha, source, target):
     :param source: Path of resources on Git repository hosted on GitHub server.
     :param target: Path of target file on the local filesystem or disk.
     :returns: None
-    :raises: None
+    :raises: GithubException: If there is any failure during download.
     """
     try:
         contents = repository.get_dir_contents(source, ref=sha)
@@ -79,6 +91,7 @@ def download_directory(repository, sha, source, target):
                 output.close()
     except (GithubException, IOError) as exception:
         logger.error('Error downloading %s: %s', content.path, exception)
+        raise GithubException("Failed to download the resource %s", source)
 
 
 def get_sha(repository, tag):
