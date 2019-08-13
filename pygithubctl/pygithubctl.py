@@ -56,8 +56,11 @@ def download_directory(repository, sha, source, target):
     GitHub server to the local file system.
 
     :param repository: repository
-    :returns: True or False based on the input value.
-    :raises: ArgumentTypeError
+    :param sha: sha
+    :param source: source
+    :param target: target
+    :returns: None
+    :raises: None
     """
     try:
         contents = repository.get_dir_contents(source, ref=sha)
