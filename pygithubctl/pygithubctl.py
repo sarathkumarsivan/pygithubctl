@@ -51,6 +51,14 @@ def download_file(repository, sha, source, target):
 
 
 def download_directory(repository, sha, source, target):
+    """
+    Downloads the files and directories recursively from Git hosted on remote
+    GitHub server to the local file system.
+
+    :param repository: repository
+    :returns: True or False based on the input value.
+    :raises: ArgumentTypeError
+    """
     try:
         contents = repository.get_dir_contents(source, ref=sha)
         for content in contents:
