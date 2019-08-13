@@ -55,9 +55,9 @@ def download_directory(repository, sha, source, target):
     Downloads the files and directories recursively from Git hosted on remote
     GitHub server to the local file system.
 
-    :param repository: repository
-    :param sha: sha
-    :param source: source
+    :param repository: Git repository hosted on GitHub server
+    :param sha: unique ID (a.k.a. the "SHA" or "hash") against the commit
+    :param source: Absolute path of resources on Git repository hosted on GitHub server
     :param target: target
     :returns: None
     :raises: None
