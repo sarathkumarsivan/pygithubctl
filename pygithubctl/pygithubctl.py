@@ -33,9 +33,8 @@ from github import GithubException
 from configurer import configure_logging_console
 
 # Logger instance for pygithubctl.
-logger = configure_logging_console(
-    logging.getLogger('pygithubctl'),
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logger = configure_logging_console(logging.getLogger('pygithubctl'), format)
 
 
 def download_file(repository, sha, source, target):
