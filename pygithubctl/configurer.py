@@ -30,8 +30,8 @@ def configure_logging_console(logger, format):
     level must be explicitly set before the configuration or after the
     configuration from the caller.
 
-    :param logger: Logger instance to be added to StreamHandler for console.
-    :param format: Logging format to be added to StreamHandler for console.
+    :param logger: Logger instance to be added to StreamHandler for console logging.
+    :param format: Logging format to be added to StreamHandler for console logging.
     :returns: Logger instance after enabling console logging.
     :raises: None
     """
@@ -43,6 +43,17 @@ def configure_logging_console(logger, format):
 
 
 def configure_logging_file(logger, format, file):
+    """
+    Configure and enable file logging with the given format. The logging
+    level must be explicitly set before the configuration or after the
+    configuration from the caller.
+
+    :param logger: Logger instance to be added to StreamHandler for file logging.
+    :param format: Logging format to be added to StreamHandler for file logging.
+    :param file: Logging format to be added to StreamHandler for file logging.
+    :returns: Logger instance after enabling file logging.
+    :raises: None
+    """
     handler = logging.FileHandler(file)
     handler.setFormatter(format)
     logger.addHandler(handler)
