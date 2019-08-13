@@ -57,8 +57,8 @@ def download_directory(repository, sha, source, target):
 
     :param repository: Git repository hosted on GitHub server
     :param sha: unique ID (a.k.a. the "SHA" or "hash") against the commit
-    :param source: Absolute path of resources on Git repository hosted on GitHub server
-    :param target: target
+    :param source: Path of resources on Git repository hosted on GitHub server.
+    :param target: Path of target file on the local filesystem or disk.
     :returns: None
     :raises: None
     """
