@@ -13,3 +13,4 @@ build
 .secret
 .pytest_cache
 pygithubctl.egg-info
+.tox

@@ -23,6 +23,18 @@ Then install pygithubctl
 
     sudo pip install pygithubctl
 
+Install from GitHub via pip:
+::
+
+    pip install git+https://github.com/sarathkumarsivan/pygithubctl.git
+
+You can also install the latest version directly from a cloned Git repository:
+::
+
+    git clone https://github.com/sarathkumarsivan/pygithubctl.git
+    cd pygithubctl
+    python setup.py install
+
 Upgrade
 -------
 You can upgrade pygithubctl via pip; issue the below command to perform the upgrade:
