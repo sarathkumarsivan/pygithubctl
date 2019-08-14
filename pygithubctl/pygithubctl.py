@@ -271,6 +271,13 @@ def get_base_url(hostname):
 
 
 def get_github(options):
+    """
+    Constructs the GitHub instance for fetch operation.
+
+    :param options: Options to be used to establish the connection.
+    :returns: Github instance
+    :raises: GithubException
+    """
     if options.hostname and options.auth_token:
         base_url = get_base_url(options.hostname)
         return Github(base_url=base_url, login_or_token=options.auth_token,
