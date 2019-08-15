@@ -83,3 +83,5 @@ class TestGetBranch(TestCase):
                                '--http-ssl-verify', 'True'])
         actual = get_branch_or_tag(options)
         self.assertEqual(actual, expected)
+
+
