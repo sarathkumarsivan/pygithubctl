@@ -89,6 +89,37 @@ class TestGetOptions(TestCase):
         self.assertTrue(options.http_ssl_verify)
         self.assertEqual(options.http_ssl_verify, http_ssl_verify)
 
+    def test_required_options_with_file_type2(self):
+        auth_token = "authToken"
+        repository = "repository"
+        owner = "owner"
+        tag = "tag"
+        path = "pygithubctl"
+        type = "file"
+        destination = "/home/user/git"
+        http_ssl_verify = True
+        options = get_options(['fetch',
+                               '--auth-token', auth_token,
+                               '--repository', repository,
+                               '--owner', owner,
+                               '--tag', tag,
+                               '--path', path,
+                               '--type', type,
+                               '--destination', destination,
+                               '--http-ssl-verify', str(http_ssl_verify)])
+        self.assertTrue(options.auth_token)
+        self.assertEqual(options.auth_token, auth_token)
+        self.assertTrue(options.repository)
+        self.assertEqual(options.repository, repository)
+        self.assertTrue(options.owner)
+        self.assertEqual(options.owner, owner)
+        self.assertTrue(options.tag)
+        self.assertEqual(options.tag, tag)
+        self.assertTrue(options.destination)
+        self.assertEqual(options.destination, destination)
+        self.assertTrue(options.http_ssl_verify)
+        self.assertEqual(options.http_ssl_verify, http_ssl_verify)
+
     def test_required_options_with_dir_type1(self):
         auth_token = "authToken"
         repository = "repository"
