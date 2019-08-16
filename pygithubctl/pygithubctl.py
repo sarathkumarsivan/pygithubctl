@@ -47,7 +47,7 @@ def download_file(repository, sha, source, target):
     :param source: Path of resources on Git repository hosted on GitHub server.
     :param target: Path of target file on the local filesystem or disk.
     :returns: None
-    :raises: GithubException: If there is any failure during download.
+    :raises: GithubException: If there is any failure while downloading the files.
     """
     logger.info('Fetching %s from %s', source, repository)
     try:
