@@ -27,6 +27,7 @@ import logging
 import errno
 import urllib3
 import sys
+import time
 
 from github import Github
 from github import GithubException
@@ -344,6 +345,7 @@ def fetch(options):
 
 def main():
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    start_time = time.time()
     options = get_options(sys.argv[1:])
     logger.setLevel(level=options.logging_level)
 
@@ -351,7 +353,7 @@ def main():
         fetch(options)
     else:
         raise ValueError('Unknown option %s', options.command)
-    logger.info('Task completed.')
+    logger.info("Task completed in %s seconds" % (time.time() - start_time))
 
 
 if __name__ == '__main__':
