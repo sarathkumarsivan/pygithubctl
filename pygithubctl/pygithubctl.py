@@ -144,7 +144,7 @@ def resolve_target(source, target):
 def makedirs(path):
     """
     Create a leaf directory and all intermediate ones. Ignores the error
-     if the give path (absolute path) exists on the local file system.
+    if the give path (absolute path) exists on the local file system.
 
     :param (str) path: None
     :returns: None
@@ -351,7 +351,7 @@ def main():
 
     :param args: Options supplied from command-line to execute commands
     :returns: None
-    :raises: ValueError
+    :raises: ValueError: If the supplied options are illegal to run the commands.
     """
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     start_time = time.time()  # assumes that task takes at least a tenth of second to run.
