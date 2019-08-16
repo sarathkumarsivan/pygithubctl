@@ -345,7 +345,9 @@ def fetch(options):
 
 def main():
     """
-    Main function for executing all the Git specific commands.
+    Main function for executing all the Git specific commands. The urllib3 warning,
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) has been
+    disabled through code. It's possible to do the same through environment variable
 
     :param args: Options supplied from command-line to execute commands
     :returns: None
