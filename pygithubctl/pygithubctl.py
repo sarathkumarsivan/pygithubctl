@@ -354,7 +354,7 @@ def main():
     :raises: ValueError
     """
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    start_time = time.time()
+    start_time = time.time()  # assumes that task takes at least a tenth of second to run.
     options = get_options(sys.argv[1:])
     logger.setLevel(level=options.logging_level)
 
