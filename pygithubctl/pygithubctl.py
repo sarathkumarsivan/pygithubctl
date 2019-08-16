@@ -344,6 +344,13 @@ def fetch(options):
 
 
 def main():
+    """
+    Main function for executing all the Git specific commands.
+
+    :param args: Options supplied from command-line to execute commands
+    :returns: None
+    :raises: ValueError
+    """
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     start_time = time.time()
     options = get_options(sys.argv[1:])
