@@ -31,6 +31,13 @@ class Error(Exception):
     pass
 
 
+class Warning(Warning):
+    """
+    Base class for other exceptions
+    """
+    pass
+
+
 class AuthenticationException(Error):
     """
     Raised when there is any problem with authenticating the GitHub server
