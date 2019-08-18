@@ -32,7 +32,7 @@ import time
 from github import Github
 from github import GithubException
 from configurer import configure_logging_console
-from exceptions import AuthenticationException
+#from exceptions import AuthenticationException
 
 # Logger instance for pygithubctl.
 format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
