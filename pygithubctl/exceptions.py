@@ -20,9 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+# Enable absolute import, otherwise the 'exceptions' module of stdlib will not be found
+from __future__ import absolute_import
 
-class PyGitHubCtlException(Exception):
+
+class Error(Exception):
     """
     Base class for other exceptions
+    """
+    pass
+
+
+class AuthenticationException(Error):
+    """
+    Raised when there is any problem with authenticating the GitHub server
+    with the provided credentials or access token
     """
     pass
