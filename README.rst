@@ -7,6 +7,7 @@ pygithubctl
 .. |pypi| image:: https://img.shields.io/pypi/v/pygithubctl.svg
 .. |coverage| image:: https://img.shields.io/badge/coverage-100%25-brightgreen
 
+
 The GitHub command-line tool, pygithubctl, lets you download a specific file, folder or directory from a remote Git repository hosted on GitHub. You can also download an entire project from GitHub without version control data. Git operates on a whole-repository basis and if you have projects where finer-grained access is necessary, you can use submodules; each submodule is a separate Git project, and thus can be cloned individually. But if a project wasn't configured so from the beginning, you can make use of pygithubctl to download the file or folders you are really interested in.
 
 Installation
