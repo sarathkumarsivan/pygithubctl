@@ -32,7 +32,7 @@ import time
 from github import Github
 from github import GithubException
 from configurer import configure_logging_console
-#from exceptions import AuthenticationException
+from exceptions import Error
 
 # Logger instance for pygithubctl.
 format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -225,7 +225,7 @@ def str_to_bool(value):
 
     :param str value: string representation of a boolean value
     :returns: True or False based on the input value.
-    :raises: ArgumentTypeError
+    :raises: ArgumentTypeError when the value is not a boolean string
     """
     if isinstance(value, bool):
         return value

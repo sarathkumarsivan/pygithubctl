@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# Enable absolute import, otherwise the 'exceptions' module of stdlib will not be found
+# Enable absolute import
 from __future__ import absolute_import
 
 
