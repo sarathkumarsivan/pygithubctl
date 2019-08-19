@@ -60,7 +60,7 @@ def download_file(repository, sha, source, target):
         output.close()
     except (GithubException, IOError) as exception:
         logger.error('Error downloading %s: %s', source, exception)
-        raise GithubException("Failed to download the resource %s", source)
+        raise AuthenticationException("Failed to download the resource %s", source)
 
 
 def download_directory(repository, sha, source, target):
