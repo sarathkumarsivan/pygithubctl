@@ -32,7 +32,6 @@ import time
 from github import Github
 from github import GithubException
 from configurer import configure_logging_console
-from exception import AuthenticationException
 
 # Logger instance for pygithubctl.
 format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -58,9 +57,9 @@ def download_file(repository, sha, source, target):
         output = open(target, "w")
         output.write(data)
         output.close()
-    except (Exception, IOError) as exception:
+    except (GithubException, IOError) as exception:
         logger.error('Error downloading %s: %s', source, exception)
-        raise AuthenticationException("Failed to download the resource %s", source)
+        raise GithubException("Failed to download the resource %s", source)
 
 
 def download_directory(repository, sha, source, target):
@@ -91,9 +90,9 @@ def download_directory(repository, sha, source, target):
                 output = open(destination, "w")
                 output.write(data)
                 output.close()
-    except (Exception, IOError) as exception:
+    except (GithubException, IOError) as exception:
         logger.error('Error downloading %s: %s', content.path, exception)
-        raise AuthenticationException("Failed to download the resource %s", source)
+        raise GithubException("Failed to download the resource %s", source)
 
 
 def get_sha(repository, tag):
