@@ -58,7 +58,7 @@ def download_file(repository, sha, source, target):
         output = open(target, "w")
         output.write(data)
         output.close()
-    except (GithubException, IOError) as exception:
+    except (Exception, IOError) as exception:
         logger.error('Error downloading %s: %s', source, exception)
         raise AuthenticationException("Failed to download the resource %s", source)
 
@@ -91,9 +91,9 @@ def download_directory(repository, sha, source, target):
                 output = open(destination, "w")
                 output.write(data)
                 output.close()
-    except (GithubException, IOError) as exception:
+    except (Exception, IOError) as exception:
         logger.error('Error downloading %s: %s', content.path, exception)
-        raise GithubException("Failed to download the resource %s", source)
+        raise AuthenticationException("Failed to download the resource %s", source)
 
 
 def get_sha(repository, tag):
