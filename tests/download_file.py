@@ -25,6 +25,12 @@ import pytest
 from pygithubctl.pygithubctl import download_file
 
 
-def test_download_file_attribute_error():
+def test_download_file_attribute_error1():
     with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
         download_file("repository", "sha", "source", "target")
+
+
+def test_download_file_attribute_error2():
+    with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+        download_file("repository", "", "source", "target")
+
