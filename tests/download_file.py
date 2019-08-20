@@ -22,19 +22,24 @@
 
 import pytest
 
+from unittest import TestCase
 from pygithubctl.pygithubctl import download_file
 
 
-def test_download_file_attribute_error1():
-    with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
-        download_file("repository", "sha", "source", "target")
+class TestDownloadFile(TestCase):
 
+    def test_download_file_attribute_error1(self):
+        with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+            download_file("repository", "sha", "source", "target")
 
-def test_download_file_attribute_error2():
-    with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
-        download_file("repository", "", "source", "target")
+    def test_download_file_attribute_error2(self):
+        with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+            download_file("repository", "", "source", "target")
 
+    def test_download_file_attribute_error3(self):
+        with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+            download_file("repository", "", "", "target")
 
-def test_download_file_attribute_error3():
-    with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
-        download_file("repository", "", "", "target")
+    def test_download_file_attribute_error4(self):
+        with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+            download_file("", "", "", "")
