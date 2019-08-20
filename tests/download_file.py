@@ -43,3 +43,7 @@ class TestDownloadFile(TestCase):
     def test_download_file_attribute_error4(self):
         with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
             download_file("", "", "", "")
+
+    def test_download_file_attribute_error5(self):
+        with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+            download_file(None, "", "", "")
