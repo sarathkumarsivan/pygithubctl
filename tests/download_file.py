@@ -34,3 +34,7 @@ def test_download_file_attribute_error2():
     with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
         download_file("repository", "", "source", "target")
 
+
+def test_download_file_attribute_error3():
+    with pytest.raises(AttributeError, match=r".* object has no attribute .*"):
+        download_file("repository", "", "", "target")
